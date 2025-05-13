@@ -99,7 +99,7 @@ const MainContent = () => {
   );
 
   return (
-    <main className="m-0.5 flex-1 bg-white py-2 px-3 overflow-auto border border-gray-300 rounded-lg text-sm leading-8 ">
+    <main className="m-0.5 flex-1 bg-gray-100 py-2 px-2 overflow-auto border border-gray-300 rounded-lg text-sm leading-8 ">
       {/* Top filter bar */}
       <div className="flex items-center gap-2 mb-4 bg-transparent px-0 py-0 rounded-none border-none">
         {/* Search button */}
@@ -138,166 +138,119 @@ const MainContent = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-2">
+      <div className="flex space-x-3 ml-3">
         {tabConfigs.map(tab => {
           let iconProps: Record<string, string> = { maskImage: '', maskPosition: '' };
+          let icon = null;
           if (tab.key === 'chien-dich') {
-            return (
-              <div key={tab.key} className="flex items-center gap-2">
-                <button
-                  className={`flex items-center gap-1 px-3 py-1 rounded-t-md ${tab.key === activeTab ? 'text-blue-700' : 'text-gray-600'}`}
-                  onClick={() => setActiveTab(tab.key)}
-                  style={{ minWidth: 120 }}
-                >
-                  <svg viewBox="0 0 48 48" width="1em" height="1em" fill="currentColor" className="x1qsmy5i xxk0z11 xvy4d1p">
-                    <path d="M40.5 10H23.74c-1.08 0-2.03-.69-2.37-1.71s-.18-.53-.18-.53A5.496 5.496 0 0 0 15.97 4H6.5C4.02 4 2 6.02 2 8.5v30C2 41.53 4.47 44 7.5 44h33c3.03 0 5.5-2.47 5.5-5.5v-23c0-3.03-2.47-5.5-5.5-5.5zm-9.83 23.73c-.2.18-.46.27-.72.27-.17 0-.35-.04-.51-.13L24 30.98l-5.44 2.89c-.4.21-.89.15-1.23-.14a.98.98 0 0 1-.23-1.16l5.95-12c.17-.35.54-.57.95-.57s.77.22.95.57l5.95 12c.19.39.1.86-.23 1.16z" />
-                  </svg>
-                  <span className="font-semibold text-sm">{tab.label}</span>
-                </button>
-                {activeTab === tab.key && selectedRows.length > 0 && (
-                  <span className="flex items-center gap-1 bg-[#1781d6] text-white rounded-full px-3 py-1 text-sm font-medium">
-                    Đã chọn {selectedRows.length} mục
-                    <button
-                      className="ml-1 hover:bg-blue-700 rounded-full w-5 h-5 flex items-center justify-center"
-                      onClick={() => setSelectedRows([])}
-                      tabIndex={-1}
-                    >
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6m0-6l-6 6" stroke="white" strokeWidth="2" strokeLinecap="round" /></svg>
-                    </button>
-                  </span>
-                )}
-              </div>
+            icon = (
+              <svg viewBox="0 0 48 48" width="1.5em" height="1.5em" fill="currentColor" className="x1qsmy5i xxk0z11 xvy4d1p">
+                <path d="M40.5 10H23.74c-1.08 0-2.03-.69-2.37-1.71s-.18-.53-.18-.53A5.496 5.496 0 0 0 15.97 4H6.5C4.02 4 2 6.02 2 8.5v30C2 41.53 4.47 44 7.5 44h33c3.03 0 5.5-2.47 5.5-5.5v-23c0-3.03-2.47-5.5-5.5-5.5zm-9.83 23.73c-.2.18-.46.27-.72.27-.17 0-.35-.04-.51-.13L24 30.98l-5.44 2.89c-.4.21-.89.15-1.23-.14a.98.98 0 0 1-.23-1.16l5.95-12c.17-.35.54-.57.95-.57s.77.22.95.57l5.95 12c.19.39.1.86-.23 1.16z" />
+              </svg>
             );
           } else if (tab.key === 'nhom-quang-cao') {
             iconProps = {
               maskImage: 'url(https://static.xx.fbcdn.net/rsrc.php/v4/yU/r/loypeVkMFSa.png)',
               maskPosition: '-357px -296px',
             };
-            return (
-              <div key={tab.key} className="flex items-center gap-2">
-                <button
-                  className={`flex items-center gap-1 px-3 py-1 rounded-t-md ${tab.key === activeTab ? 'text-blue-700' : 'text-gray-600'}`}
-                  onClick={() => setActiveTab(tab.key)}
-                  style={{ minWidth: 120 }}
-                >
-                  <div
-                    className="xtwfq29"
-                    style={{
-                      width: 16,
-                      height: 16,
-                      maskImage: iconProps.maskImage,
-                      maskPosition: iconProps.maskPosition,
-                      background: tab.key === activeTab ? '#2196f3' : '#222',
-                      display: 'inline-block',
-                      marginRight: 4,
-                    }}
-                  />
-                  <span className="font-semibold text-sm">{tab.label}</span>
-                </button>
-                {selectedRows.length > 0 && (
-                  <span className="flex items-center border border-gray-300 bg-white text-gray-800 rounded-full px-3 py-1 text-sm font-medium ml-0">
-                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none" className="mr-1"><rect x="3" y="3" width="4" height="4" rx="1" fill="#666"/><rect x="3" y="9" width="4" height="4" rx="1" fill="#666"/><rect x="9" y="3" width="4" height="4" rx="1" fill="#666"/><rect x="9" y="9" width="4" height="4" rx="1" fill="#666"/></svg>
-                    Nhóm quảng cáo đối với <span className="font-bold mx-1">{selectedRows.length}</span> <span className="font-bold">Chiến dịch</span>
-                  </span>
-                )}
-              </div>
+            icon = (
+              <div
+                className="xtwfq29"
+                style={{
+                  width: 24,
+                  height: 24,
+                  maskImage: iconProps.maskImage,
+                  maskPosition: iconProps.maskPosition,
+                  background: tab.key === activeTab ? '#2563eb' : '#888',
+                  display: 'inline-block',
+                  marginRight: 6,
+                }}
+              />
             );
           } else if (tab.key === 'quang-cao') {
             iconProps = {
               maskImage: 'url(https://static.xx.fbcdn.net/rsrc.php/v4/yU/r/loypeVkMFSa.png)',
-              maskPosition: '-252px -296px',
+              maskPosition: '-34px -355px',
             };
-            return (
-              <div key={tab.key} className="flex items-center gap-2">
-                <button
-                  className={`flex items-center gap-1 px-3 py-1 rounded-t-md ${tab.key === activeTab ? 'text-blue-700' : 'text-gray-600'}`}
-                  onClick={() => setActiveTab(tab.key)}
-                  style={{ minWidth: 120 }}
-                >
-                  <div
-                    className="xtwfq29"
-                    style={{
-                      width: 16,
-                      height: 16,
-                      maskImage: iconProps.maskImage,
-                      maskPosition: iconProps.maskPosition,
-                      background: tab.key === activeTab ? '#2196f3' : '#222',
-                      display: 'inline-block',
-                      marginRight: 4,
-                    }}
-                  />
-                  <span className="font-semibold text-sm">{tab.label}</span>
-                </button>
-                {selectedRows.length > 0 && (
-                  <span className="flex items-center border border-gray-300 bg-white text-gray-800 rounded-full px-3 py-1 text-sm font-medium ml-0">
-                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none" className="mr-1"><rect x="3" y="7" width="14" height="6" rx="1" fill="#666"/></svg>
-                    Quảng cáo đối với <span className="font-bold mx-1">{selectedRows.length}</span> <span className="font-bold">Chiến dịch</span>
-                  </span>
-                )}
-              </div>
+            icon = (
+              <div
+                className="xtwfq29"
+                style={{
+                  width: 24,
+                  height: 24,
+                  maskImage: iconProps.maskImage,
+                  maskPosition: iconProps.maskPosition,
+                  background: tab.key === activeTab ? '#2563eb' : '#888',
+                  display: 'inline-block',
+                  marginRight: 6,
+                }}
+              />
             );
           }
-          return null;
+          const isActive = tab.key === activeTab;
+          return (
+            <button
+              key={tab.key}
+              className={`flex items-center gap-2 px-2 py-1 pe-20 rounded-t-lg transition-all duration-150 text-base
+                ${isActive
+                  ? 'bg-white text-blue-600 font-bold z-10'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-200'}
+              `}
+              style={{ minWidth: 210, height: 44 }}
+              onClick={() => setActiveTab(tab.key)}
+            >
+              {icon}
+              <span className="font-semibold text-base">{tab.label}</span>
+            </button>
+          );
         })}
-        <div className="flex-1" />
+      </div>
+
+      <div className="overflow-x-auto rounded-xl p-2 bg-white">
         <div className="flex items-center justify-between mb-2">
-
-          <button className="flex items-center gap-2 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-md font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150 min-w-[320px] justify-between">
-            <div className="xtwfq29" style={{ width: 16, height: 16, maskImage: 'url(https://static.xx.fbcdn.net/rsrc.php/v4/yi/r/yce2C66SV51.png)', maskPosition: '-305px -965px', background: 'currentColor' }} />
-            <span className="flex-1 text-left">Tháng này: 1 Tháng 5, 2025 – 11 Tháng 5, 2025</span>
-            <div className="xtwfq29" style={{ width: 16, height: 16, maskImage: 'url(https://static.xx.fbcdn.net/rsrc.php/v4/yi/r/yce2C66SV51.png)', maskPosition: '-221px -1118px', background: 'currentColor' }} />
-          </button>
+          <div className="flex items-center gap-1">
+            <button className="flex items-center gap-1 bg-green-600 text-white px-4 h-9 rounded-sm border-gray-300 shadow-sm border border-green-700 hover:bg-green-700 hover:shadow-md hover:border-green-800 transition-colors transition-shadow duration-150">
+              <PlusIcon className="w-4 h-4" /> Tạo
+            </button>
+            <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
+              <DocumentDuplicateIcon className="w-4 h-4" /> Sao chép
+            </button>
+            <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
+              <PencilSquareIcon className="w-4 h-4" /> Chỉnh sửa
+            </button>
+            <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
+              <BeakerIcon className="w-4 h-4" /> Thử nghiệm A/B
+            </button>
+            <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
+              <EllipsisHorizontalIcon className="w-4 h-4" /> Xem thêm
+            </button>
+          </div>
+          <div className="flex items-center gap-1">
+            <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
+              <ChartBarIcon className="w-4 h-4" /> Cột: Hiệu quả
+            </button>
+            <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
+              <AdjustmentsHorizontalIcon className="w-4 h-4" /> Số liệu chia nhỏ
+            </button>
+            <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
+              <BeakerIcon className="w-4 h-4" /> Báo cáo
+            </button>
+            <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
+              <ArrowDownTrayIcon className="w-4 h-4" /> Xuất
+            </button>
+            <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
+              <ChartBarIcon className="w-4 h-4" /> Biểu đồ
+            </button>
+          </div>
         </div>
-      </div>
-      {/* Date select in the same row as tabs */}
-
-      {/* Table controls */}
-      <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center gap-1">
-          <button className="flex items-center gap-1 bg-green-600 text-white px-4 h-9 rounded-sm border-gray-300 shadow-sm border border-green-700 hover:bg-green-700 hover:shadow-md hover:border-green-800 transition-colors transition-shadow duration-150">
-            <PlusIcon className="w-4 h-4" /> Tạo
-          </button>
-          <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
-            <DocumentDuplicateIcon className="w-4 h-4" /> Sao chép
-          </button>
-          <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
-            <PencilSquareIcon className="w-4 h-4" /> Chỉnh sửa
-          </button>
-          <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
-            <BeakerIcon className="w-4 h-4" /> Thử nghiệm A/B
-          </button>
-          <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
-            <EllipsisHorizontalIcon className="w-4 h-4" /> Xem thêm
-          </button>
-        </div>
-        <div className="flex items-center gap-1">
-          <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
-            <ChartBarIcon className="w-4 h-4" /> Cột: Hiệu quả
-          </button>
-          <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
-            <AdjustmentsHorizontalIcon className="w-4 h-4" /> Số liệu chia nhỏ
-          </button>
-          <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
-            <BeakerIcon className="w-4 h-4" /> Báo cáo
-          </button>
-          <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
-            <ArrowDownTrayIcon className="w-4 h-4" /> Xuất
-          </button>
-          <button className="flex items-center gap-1 bg-white border border-gray-300 text-gray-800 px-3 h-9 rounded-sm font-medium hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150">
-            <ChartBarIcon className="w-4 h-4" /> Biểu đồ
-          </button>
-        </div>
-      </div>
-      {/* Table */}
-      <div className="overflow-x-auto rounded border border-gray-200 bg-white">
-        <table className="min-w-full text-xs text-left">
+        <table className="min-w-[1200px] text-sm text-left border border-gray-200">
           <thead className="sticky top-0 z-10 bg-white shadow-sm">
             <tr>
-              <th className="p-2 px-3 py-2 font-bold text-gray-700 border-b border-gray-200 text-[13px] w-8">
+              <th className="p-2 px-3 py-4 text-gray-700 border-t border-b border-r border-gray-200 text-base w-8">
                 <FBCheckbox checked={allSelected} indeterminate={isIndeterminate} onChange={handleSelectAll} />
               </th>
               {tabConfig.columns.map((col, idx) => (
-                <th key={idx} className="p-2 px-3 py-2 font-bold text-gray-700 border-b border-gray-200 whitespace-pre-line text-[13px]">
+                <th key={idx} className={`p-2 px-3 py-4 text-gray-700 border border-gray-200 whitespace-pre-line text-base font-normal${idx === 0 ? ' border-l-0' : ''}`}> 
                   {col === 'Kết quả' ? (
                     <span className="flex items-center gap-1">Kết quả <InformationCircleIcon className="w-3 h-3 text-blue-400" /></span>
                   ) : col}
@@ -307,8 +260,8 @@ const MainContent = () => {
           </thead>
           <tbody>
             {tabConfig.rows.map((row, rIdx) => (
-              <tr key={rIdx} className={rIdx % 2 === 1 ? 'bg-[#f5f6fa] border-t' : 'bg-white border-t'}>
-                <td className="p-2 px-3 py-2 w-8">
+              <tr key={rIdx} className={rIdx % 2 === 1 ? 'bg-[#f5f6fa]' : 'bg-white'}>
+                <td className="p-2 px-3 py-4 w-8 text-base border-t border-b border-r border-gray-200 font-normal">
                   <FBCheckbox checked={selectedRows.includes(rIdx)} onChange={() => handleSelectRow(rIdx)} />
                 </td>
                 {row.map((cell, cIdx) => {
@@ -316,7 +269,7 @@ const MainContent = () => {
                   // Toggle switch for Tắt/Bật
                   if (colName === 'Tắt/Bật') {
                     return (
-                      <td key={cIdx} className="p-2 px-3 py-2">
+                      <td key={cIdx} className={`p-2 px-3 py-2 text-base border border-gray-200 font-normal${cIdx === 0 ? ' border-l-0' : ''}`}>
                         <button
                           className={`w-9 h-5 flex items-center rounded-full transition-colors duration-200 ${cell ? 'bg-blue-600' : 'bg-gray-300'}`}
                           aria-pressed={!!cell}
@@ -331,15 +284,15 @@ const MainContent = () => {
                   // Blue link for names
                   if (colName.includes('Nhóm quảng cáo') || colName === 'Chiến dịch' || colName === 'Quảng cáo') {
                     return (
-                      <td key={cIdx} className="p-2 px-3 py-2">
-                        <span className="text-blue-700 underline cursor-pointer text-[13px]">{cell}</span>
+                      <td key={cIdx} className={`p-2 px-3 py-2 text-base border border-gray-200 font-normal${cIdx === 0 ? ' border-l-0' : ''}`}>
+                        <span className="text-blue-700 underline cursor-pointer">{cell}</span>
                       </td>
                     );
                   }
                   // Gray dot for status
                   if (colName === 'Phân phối') {
                     return (
-                      <td key={cIdx} className="p-2 px-3 py-2">
+                      <td key={cIdx} className={`p-2 px-3 py-4 text-base border border-gray-200 font-normal${cIdx === 0 ? ' border-l-0' : ''}`}>
                         {typeof cell === 'string' && cell.includes('Tắt') ? (
                           <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-gray-300 inline-block" /> {cell}</span>
                         ) : cell}
@@ -349,7 +302,7 @@ const MainContent = () => {
                   // Multi-line for budget
                   if (colName === 'Ngân sách' && typeof cell === 'string' && cell.includes('\n')) {
                     return (
-                      <td key={cIdx} className="p-2 px-3 py-2">
+                      <td key={cIdx} className={`p-2 px-3 py-4 text-base border border-gray-200 font-normal${cIdx === 0 ? ' border-l-0' : ''}`}>
                         {cell.split('\n').map((line, i) => <div key={i}>{line}</div>)}
                       </td>
                     );
@@ -358,22 +311,22 @@ const MainContent = () => {
                   if (colName === 'Kết quả' && typeof cell === 'string' && cell.includes('\n')) {
                     const [main, sub] = cell.split('\n');
                     return (
-                      <td key={cIdx} className="p-2 px-3 py-2">
+                      <td key={cIdx} className={`p-2 px-3 py-4 text-base border border-gray-200 font-normal${cIdx === 0 ? ' border-l-0' : ''}`}>
                         <div>{main}</div>
-                        <div className="text-gray-400 text-[11px] leading-tight">{sub}</div>
+                        <div className="text-gray-400 text-[13px] leading-tight">{sub}</div>
                       </td>
                     );
                   }
                   // Subtext for other multi-line
                   if (typeof cell === 'string' && cell.includes('\n')) {
                     return (
-                      <td key={cIdx} className="p-2 px-3 py-2">
-                        {cell.split('\n').map((line, i) => <div key={i} className={i === 1 ? 'text-gray-400 text-[11px] leading-tight' : ''}>{line}</div>)}
+                      <td key={cIdx} className={`p-2 px-3 py-4 text-base border border-gray-200 font-normal${cIdx === 0 ? ' border-l-0' : ''}`}>
+                        {cell.split('\n').map((line, i) => <div key={i} className={i === 1 ? 'text-gray-400 text-[13px] leading-tight' : ''}>{line}</div>)}
                       </td>
                     );
                   }
                   // Default
-                  return <td key={cIdx} className="p-2 px-3 py-2 text-[13px]">{cell}</td>;
+                  return <td key={cIdx} className={`p-2 px-3 py-4 text-base border border-gray-200 font-normal${cIdx === 0 ? ' border-l-0' : ''}`}>{cell}</td>;
                 })}
               </tr>
             ))}
